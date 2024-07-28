@@ -17,18 +17,18 @@ import Mobnav from './Mobnav';
 const Landing = () => {
 
   useEffect(() => {
-    // Only run on the client-side
+    
     if (typeof window !== 'undefined') {
-      // Register ScrollTrigger plugin
+   
       gsap.registerPlugin(ScrollTrigger);
 
-      // Set up scroll animations
+    
       gsap.utils.toArray('.reveal').forEach((element) => {
         gsap.fromTo(
           element,
-          { y: 50, opacity: 0 }, // Initial state: moved down and hidden
+          { y: 50, opacity: 0 }, 
           {
-            y: 0, // Final state: original position
+            y: 0, 
             opacity: 1, // Fully visible
             duration: 1,
             scrollTrigger: {

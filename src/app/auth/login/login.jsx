@@ -1,11 +1,11 @@
 "use client"
 import React, { Suspense, useState } from 'react'
-
+import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { FcGoogle } from 'react-icons/fc'
- 
+import { useSearchParams } from 'next/navigation'
 import { FaGithub } from 'react-icons/fa'
-import { NewPasswordSchema } from '../../../schema/index'
+import { LoginSchema } from '..//..//../schema/index'
 import * as z from 'zod'
 import { transformToNestObject } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -25,25 +25,16 @@ import { Button } from '@/components/ui/button'
 import SecondNav from '@/app/component/SecondNav'
 import FormError from '@/app/component/form-error'
 import FormSuccess from '@/app/component/form-success'
-
+import { login } from '@/actions/login'
 import { signIn } from 'next-auth/react'
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
+import Socials from '../socials'
+import Top from './Top'
 
 
-import Link from 'next/link'
-
-import Forgot from '../reset/forgot'
-import NewPassword from './new-password'
-import { useSearchParams } from 'next/navigation'
-import { newPassword } from '@/actions/new-password'
-// import Socials from '../socials'
-// import Top from './Top'
-
-
-const NewPasswordForm = () => {
+const Login = () => {
   const searchParams = useSearchParams();
-  const token = searchParams.get("token");
-  // const urlError = searchParams.get("error") ==="OAuthAccountNotLinked" ? "Email already in use with different provider!":"";
+  const urlError = searchParams.get("error") ==="OAuthAccountNotLinked" ? "Email already in use with different provider!":"";
   // const onClick = (provider) =>{
   //   signIn(provider,{
   //     callbackUrl : DEFAULT_LOGIN_REDIRECT,
@@ -52,15 +43,16 @@ const NewPasswordForm = () => {
   // }
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  
+
 
 
 
   const [isPending, startTransition]= useTransition();
 
   const form = useForm({
-    resolver: zodResolver(NewPasswordSchema),
+    resolver: zodResolver(LoginSchema),
     defaultValues: {
+      email: "",
       password: "",
     }
   });
@@ -68,10 +60,9 @@ const NewPasswordForm = () => {
   const onSubmit =(values)=>{
     setError("");
     setSuccess("");
-    
-   
+    // console.log(values)
      startTransition(()=>{
-      newPassword(values,token)
+      login(values)
       .then((data)=>{
         setError(data?.error);
         setSuccess(data?.success);
@@ -100,8 +91,28 @@ const NewPasswordForm = () => {
         <div
         className='space-y-2 w-[18vw]'
         >
-         <NewPassword />
+          <Top />
           <FormField 
+          control={form.control}
+          name="email"
+          render={({ field })=>(
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input 
+                {...field}
+                disabled={isPending}
+                placeholder="jphndae@gmail.com"
+                type="email"
+                className=" rounded-xl"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+          />
+
+            <FormField 
           control={form.control}
           name="password"
           render={({ field })=>(
@@ -113,18 +124,27 @@ const NewPasswordForm = () => {
                 disabled={isPending}
                 placeholder="******"
                 type="password"
-                className=" rounded-xl"
+                className="rounded-xl"
                 />
               </FormControl>
+              <Button
+              size="sm"
+              variant="link"
+              asChild
+              className="px-0 font-normal "
+              >
+
+          <Link href='/auth/reset'>
+          Forgot password?
+          </Link>
+              </Button>
               <FormMessage />
             </FormItem>
           )}
           />
-
-          
         </div>
         <FormError 
-        message={error}
+        message={error || urlError}
         />
         <FormSuccess 
         message={success}
@@ -134,7 +154,7 @@ const NewPasswordForm = () => {
        type="submit"
        className="bg-blue-950  text-white rounded-xl   w-full hover:text-black" 
         >
-          Reset Password
+          Login
         </Button>
         <div  className='flex justify-between w-full '>
          {/* <button
@@ -152,18 +172,18 @@ const NewPasswordForm = () => {
          />
          </button> */}
 
-         {/* <Socials /> */}
+         <Socials />
         </div>
         <div>
-          <Link href='/auth/login'>
           <p>
-          Back to login
-      
-         
-       
+            Don't have an account?
+          <Link href='/auth/register'>
+          <span className='hover:underline'>
+            Register
+           </span>
+          </Link>
 
           </p>
-          </Link>
         </div>
         </form>
          
@@ -173,4 +193,4 @@ const NewPasswordForm = () => {
   )
 }
 
-export default NewPasswordForm;
+export default Login

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import SecondNav from '../component/SecondNav'
 import Navbar from '../component/Navbar'
 
@@ -7,14 +7,14 @@ import Shipping from './checkoutPage'
 
 const Checkout = () => {
   return (
-    <>
-   {/* <Navbar /> */}
+    <Suspense>
+  
   <SessionProvider>
   <SecondNav />
  <Shipping />
   </SessionProvider>
     
-    </>
+    </Suspense>
   )
 }
 

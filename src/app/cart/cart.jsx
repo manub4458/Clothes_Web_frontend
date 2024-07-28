@@ -3,12 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 
 
 import axios from 'axios';
-// import ProductPagee from '../components/ProductPagee';
 
-// import ProductImages from '../products/[productsId]/ProductImages';
-
-
-// import Size from '../products/[productsId]/Size';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import SecondNav from '../component/SecondNav';
@@ -16,6 +11,7 @@ import { priceCalculator } from '@/libs/utils';
 import { useCart } from '@/hooks/useCartHook';
 import ProductCards from '../component/ProductCards';
 export default function ShoppingCart() {
+  
   const [cartItems, setCartItems] = useState([]);
   const[count, setCount] = useState(0);
   const router = useRouter();

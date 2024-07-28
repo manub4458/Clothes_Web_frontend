@@ -5,7 +5,7 @@ import FormError from "@/app/component/form-error";
 import FormSuccess from "@/app/component/form-success";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation"
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners"
 const NewVerificationForm = () => {
 
@@ -35,7 +35,7 @@ const NewVerificationForm = () => {
         onSubmit();
     },[onSubmit])
   return (
-   <>
+   <Suspense>
    <div className="flex justify-center items-center h-full w-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-sky-400 to-blue-800">
     <div className="bg-white max-w-[30vw] max-h-[35vh] rounded-xl w-full h-full flex flex-col space-y-3 justify-center items-center">
       <div>
@@ -75,7 +75,7 @@ const NewVerificationForm = () => {
 
    </div>
    
-   </>
+   </Suspense>
   )
 }
 
