@@ -1,23 +1,17 @@
-import React from 'react'
-import { auth, signOut } from '@/auth'
-const SettingsPage = async() => {
-    const session = await auth();
+import React from 'react';
+import { auth } from '@/auth'; // Ensure the correct path to your auth module
+import SignOutForm from '@/app/component/SignoutForm';
+
+
+const SettingsPage = async () => {
+  const session = await auth();
+
   return (
     <div className='gap-x-10'>
-        {
-            JSON.stringify(session)
-        }
-
-        <form action={async()=>{
-            "use server"
-            await signOut();
-        }}>
-         <button type="submit">
-         Sign out
-         </button>
-        </form>
+      <pre>{JSON.stringify(session, null, 2)}</pre>
+    <SignOutForm />
     </div>
-  )
-}
+  );
+};
 
-export default SettingsPage
+export default SettingsPage;
