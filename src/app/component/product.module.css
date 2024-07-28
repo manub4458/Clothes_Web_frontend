@@ -1,0 +1,22 @@
+/* components/Product.module.css */
+.product {
+  
+    overflow: hidden;
+  }
+  
+  .product img {
+
+    transition: transform 0.3s ease;
+  }
+  
+  .product:hover img {
+    transform: scale(.9); 
+   
+  }
+  
+  .hovered img {
+    transform: scale(.9); 
+   
+  
+  }
+  
