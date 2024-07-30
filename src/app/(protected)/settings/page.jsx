@@ -3,7 +3,14 @@ import { auth } from '@/auth'; // Ensure the correct path to your auth module
 import SignOutForm from '@/app/component/SignoutForm';
 
 const SettingsPage = async () => {
-  const session = await auth();
+  let session;
+
+  try {
+    session = await auth();
+  } catch (error) {
+    console.error('Error fetching session:', error);
+    session = null;
+  }
 
   return (
     <div className='gap-x-10'>
