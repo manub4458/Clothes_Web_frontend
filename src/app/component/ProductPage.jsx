@@ -8,7 +8,7 @@ const ProductPage = ({brand,about,original_price,discount_price,taxes,product_in
 
     <div className=' '>
 
-        <div className='flex  justify-evenly '>
+        <div className='flex  justify-start '>
     
 
             {/* <div className='' >
