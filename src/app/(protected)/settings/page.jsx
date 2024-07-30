@@ -1,6 +1,6 @@
 import React from 'react';
 import { auth } from '@/auth'; // Ensure the correct path to your auth module
-import SignOutForm from '@/app/component/SignoutForm';
+import SignOutForm from '../../component/SignoutForm';
 
 const SettingsPage = async () => {
   let session;
