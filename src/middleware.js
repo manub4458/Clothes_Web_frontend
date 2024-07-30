@@ -50,7 +50,7 @@ import {
     publicRoutes,
 } from "./routes";
 
-import authConfig from "./auth.config";
+import authConfig from "../src/app/api/auth/[...nextauth]/auth.config";
 
 
 const { auth } = NextAuth(authConfig);
